@@ -1,0 +1,249 @@
+a.Prints countries present in asian continent
+let data = [];
+fetch('https://restcountries.com/v3.1/all')
+  .then((response) => response.json())
+  .then((res) => {
+    data = res;
+   processData(data);
+  })
+  .catch((error) => {
+    console.error('Error fetching data: ', error);
+  });
+  function processData(data) { 
+    data.forEach((country, i) => {
+      const { name = '',region='' } = country;
+      if(country.region=="Asia")
+      {
+        console.log(country.name.common);
+      }    
+    });
+  }
+//Output
+/*
+jin.js:16 Brunei
+jin.js:16 Pakistan
+jin.js:16 Hong Kong
+jin.js:16 Iraq
+jin.js:16 Timor-Leste
+jin.js:16 Oman
+jin.js:16 Syria
+jin.js:16 Palestine
+jin.js:16 Lebanon
+jin.js:16 Nepal
+jin.js:16 Uzbekistan
+jin.js:16 Israel
+jin.js:16 Qatar
+jin.js:16 Turkmenistan
+jin.js:16 Myanmar
+jin.js:16 Cambodia
+jin.js:16 Indonesia
+jin.js:16 Malaysia
+jin.js:16 North Korea
+jin.js:16 Yemen
+jin.js:16 Kazakhstan
+jin.js:16 Azerbaijan
+jin.js:16 South Korea
+jin.js:16 China
+jin.js:16 Japan
+jin.js:16 India
+jin.js:16 Afghanistan
+jin.js:16 United Arab Emirates
+jin.js:16 Iran
+jin.js:16 Kyrgyzstan
+jin.js:16 Bhutan
+jin.js:16 Maldives
+jin.js:16 Macau
+jin.js:16 Armenia
+jin.js:16 Singapore
+jin.js:16 Philippines
+jin.js:16 Georgia
+jin.js:16 Thailand
+jin.js:16 Bahrain
+jin.js:16 Vietnam
+jin.js:16 Sri Lanka
+jin.js:16 Taiwan
+jin.js:16 Bangladesh
+jin.js:16 Turkey
+jin.js:16 Jordan
+jin.js:16 Laos
+jin.js:16 Saudi Arabia
+jin.js:16 Kuwait
+jin.js:16 Tajikistan
+jin.js:16 Mongolia*/
+
+b.Prints country have less than 2 lakhs population
+let data = [];
+fetch('https://restcountries.com/v3.1/all')
+  .then((response) => response.json())
+  .then((res) => {
+    data = res;
+   processData(data);
+  })
+  .catch((error) => {
+    console.error('Error fetching data: ', error);
+  });
+  function processData(data) { 
+    console.log(data);
+    data.filter((country, i) => {
+      const { name = '',population=''} = country;
+     if(country.population<200000)
+     {
+      console.log(country.name.common);
+     }
+         
+    });
+  }
+//Output
+/*jin.js:17 Falkland Islands
+jin.js:17 Kiribati
+jin.js:17 Liechtenstein
+jin.js:17 Greenland
+jin.js:17 Saint Lucia
+jin.js:17 Saint Martin
+jin.js:17 Bermuda
+jin.js:17 Montserrat
+jin.js:17 British Indian Ocean Territory
+jin.js:17 Curaçao
+jin.js:17 Svalbard and Jan Mayen
+jin.js:17 Nauru
+jin.js:17 Marshall Islands
+jin.js:17 Faroe Islands
+jin.js:17 Pitcairn Islands
+jin.js:17 Samoa
+jin.js:17 South Georgia
+jin.js:17 Isle of Man
+jin.js:17 Gibraltar
+jin.js:17 Saint Pierre and Miquelon
+jin.js:17 Micronesia
+jin.js:17 Wallis and Futuna
+jin.js:17 Norfolk Island
+jin.js:17 Grenada
+jin.js:17 Guam
+jin.js:17 Antigua and Barbuda
+jin.js:17 Dominica
+jin.js:17 Aruba
+jin.js:17 Caribbean Netherlands
+jin.js:17 Saint Barthélemy
+jin.js:17 Bouvet Island
+jin.js:17 Saint Helena, Ascension and Tristan da Cunha
+jin.js:17 Niue
+jin.js:17 Saint Vincent and the Grenadines
+jin.js:17 San Marino
+jin.js:17 Cayman Islands
+jin.js:17 Andorra
+jin.js:17 Vatican City
+jin.js:17 Monaco
+jin.js:17 Antarctica
+jin.js:17 Cook Islands
+jin.js:17 Sint Maarten
+jin.js:17 Tuvalu
+jin.js:17 United States Minor Outlying Islands
+jin.js:17 Northern Mariana Islands
+jin.js:17 Tokelau
+jin.js:17 Tonga
+jin.js:17 Seychelles
+jin.js:17 American Samoa
+jin.js:17 Heard Island and McDonald Islands
+jin.js:17 Christmas Island
+jin.js:17 Jersey
+jin.js:17 Cocos (Keeling) Islands
+jin.js:17 Saint Kitts and Nevis
+jin.js:17 Åland Islands
+jin.js:17 Turks and Caicos Islands
+jin.js:17 Guernsey
+jin.js:17 United States Virgin Islands
+jin.js:17 British Virgin Islands
+jin.js:17 Anguilla
+jin.js:17 Palau
+jin.js:17 French Southern and Antarctic Lands*/
+
+c.Prints country's name,capital,flag
+let data = [];
+fetch('https://restcountries.com/v3.1/all')
+  .then((response) => response.json())
+  .then((res) => {
+    data = res;
+   processData(data);
+  })
+  .catch((error) => {
+    console.error('Error fetching data: ', error);
+  });
+  function processData(data) { 
+    data.map((country, i) => {
+      const { name = '',capital={},flags=''} = country;
+      console.log("Country's Name: ",country.name.official)
+      console.log("Capital: ",country.capital[0]);
+      console.log("Flag: ",country.flags.png);
+         
+    });
+  }
+
+d.Print total population of countries using reduce function
+var request=new XMLHttpRequest();
+request.open("GET","https://restcountries.com/v2/all");
+request.send();
+request.onload=function()
+{
+    var result=JSON.parse(request.response);
+   let arr=result.map((e,i)=>
+   {
+    if(e.population)
+    {
+        return e.population
+    }
+    else{
+        return 0;
+    }
+   })
+   let fin=arr.reduce((t,n)=>t+n);
+   console.log("Total population of countries:")
+   console.log(fin);  
+}
+//Output
+//Total population of countries:
+// 7759438109
+
+
+e.Prints country name used USD as their currency
+let data = [];
+fetch('https://restcountries.com/v2/all')
+  .then((response) => response.json())
+  .then((res) => {
+    data = res;
+   processData(data);
+  })
+  .catch((error) => {
+    console.error('Error fetching data: ', error);
+  });
+  function processData(data) { 
+    console.log("Countries has USD as official Currency")
+   let m= data.filter((e,i) => {
+    const{ name='', currencies='',code=''}=e
+      if(e.currencies)
+      {
+      let [a,b]=e.currencies;
+       if(a.code=="USD")
+        {
+            console.log(e.name)
+        }
+      }
+   }); 
+  }
+//Output
+/*Countries has USD as official Currency
+jk.js:20 American Samoa
+jk.js:20 Bonaire, Sint Eustatius and Saba
+jk.js:20 British Indian Ocean Territory
+jk.js:20 Virgin Islands (British)
+jk.js:20 Virgin Islands (U.S.)
+jk.js:20 Ecuador
+jk.js:20 El Salvador
+jk.js:20 Guam
+jk.js:20 Marshall Islands
+jk.js:20 Micronesia (Federated States of)
+jk.js:20 Northern Mariana Islands
+jk.js:20 Palau
+jk.js:20 Puerto Rico
+jk.js:20 Timor-Leste
+jk.js:20 Turks and Caicos Islands
+jk.js:20 United States of America*/
